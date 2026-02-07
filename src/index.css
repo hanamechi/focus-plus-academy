@@ -2,95 +2,164 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
+/* FOCUS+ Design System - Glassmorphism Theme
+   All colors are HSL for proper theming support
 */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
+    /* Primary gradient colors - Vibrant purple/blue */
+    --primary: 262 83% 58%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 280 87% 65%;
+    
+    /* Background - Soft gradient base */
+    --background: 240 20% 98%;
+    --foreground: 240 10% 10%;
+    
+    /* Cards with glassmorphism effect */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
+    --card-foreground: 240 10% 10%;
+    
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --popover-foreground: 240 10% 10%;
+    
+    /* Secondary - Softer tones */
+    --secondary: 240 10% 96%;
+    --secondary-foreground: 240 10% 20%;
+    
+    /* Muted elements */
+    --muted: 240 10% 94%;
+    --muted-foreground: 240 5% 45%;
+    
+    /* Accent - Teal/cyan for contrast */
+    --accent: 174 72% 56%;
+    --accent-foreground: 0 0% 100%;
+    
+    /* Success state */
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+    
+    /* Warning state */
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    
+    /* Destructive state */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Borders and inputs */
+    --border: 240 10% 90%;
+    --input: 240 10% 90%;
+    --ring: 262 83% 58%;
+    
+    --radius: 1rem;
+    
+    /* Sidebar */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 240 10% 30%;
+    --sidebar-primary: 262 83% 58%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 10% 96%;
+    --sidebar-accent-foreground: 240 10% 20%;
+    --sidebar-border: 240 10% 92%;
+    --sidebar-ring: 262 83% 58%;
+    
+    /* Glassmorphism tokens */
+    --glass-background: 0 0% 100% / 0.7;
+    --glass-border: 0 0% 100% / 0.5;
+    --glass-blur: 20px;
+    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(262, 83%, 58%) 0%, hsl(280, 87%, 65%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(174, 72%, 56%) 0%, hsl(199, 89%, 48%) 100%);
+    --gradient-background: linear-gradient(135deg, hsl(240, 20%, 98%) 0%, hsl(260, 30%, 96%) 50%, hsl(200, 30%, 97%) 100%);
+    
+    /* Badge colors */
+    --badge-bronze: 30 60% 50%;
+    --badge-silver: 0 0% 70%;
+    --badge-gold: 45 100% 50%;
+    
+    /* XP Progress */
+    --xp-bar: 262 83% 58%;
+    --xp-bar-background: 240 10% 92%;
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    /* Primary gradient colors - Keep vibrant */
+    --primary: 262 83% 65%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 280 87% 72%;
+    
+    /* Background - Deep dark with subtle color */
+    --background: 240 15% 8%;
+    --foreground: 0 0% 95%;
+    
+    /* Cards - Dark glass effect */
+    --card: 240 15% 12%;
+    --card-foreground: 0 0% 95%;
+    
+    --popover: 240 15% 10%;
+    --popover-foreground: 0 0% 95%;
+    
+    /* Secondary */
+    --secondary: 240 12% 16%;
+    --secondary-foreground: 0 0% 90%;
+    
+    /* Muted */
+    --muted: 240 12% 18%;
+    --muted-foreground: 240 5% 60%;
+    
+    /* Accent */
+    --accent: 174 72% 50%;
+    --accent-foreground: 0 0% 100%;
+    
+    /* Success */
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+    
+    /* Warning */
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+    
+    /* Destructive */
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    
+    /* Borders and inputs */
+    --border: 240 12% 20%;
+    --input: 240 12% 20%;
+    --ring: 262 83% 65%;
+    
+    /* Sidebar */
+    --sidebar-background: 240 15% 10%;
+    --sidebar-foreground: 0 0% 85%;
+    --sidebar-primary: 262 83% 65%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 240 12% 16%;
+    --sidebar-accent-foreground: 0 0% 90%;
+    --sidebar-border: 240 12% 18%;
+    --sidebar-ring: 262 83% 65%;
+    
+    /* Glassmorphism tokens - Dark mode */
+    --glass-background: 240 15% 12% / 0.8;
+    --glass-border: 0 0% 100% / 0.1;
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    
+    /* Gradients - Dark mode */
+    --gradient-primary: linear-gradient(135deg, hsl(262, 83%, 60%) 0%, hsl(280, 87%, 68%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(174, 72%, 50%) 0%, hsl(199, 89%, 45%) 100%);
+    --gradient-background: linear-gradient(135deg, hsl(240, 15%, 8%) 0%, hsl(260, 20%, 10%) 50%, hsl(240, 18%, 9%) 100%);
+    
+    /* Badge colors */
+    --badge-bronze: 30 60% 55%;
+    --badge-silver: 0 0% 75%;
+    --badge-gold: 45 100% 55%;
+    
+    /* XP Progress */
+    --xp-bar: 262 83% 65%;
+    --xp-bar-background: 240 12% 20%;
   }
 }
 
@@ -100,6 +169,125 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    background: var(--gradient-background);
+    min-height: 100vh;
+  }
+}
+
+/* Glassmorphism utility classes */
+@layer components {
+  .glass {
+    background: hsl(var(--glass-background));
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid hsl(var(--glass-border));
+    box-shadow: var(--glass-shadow);
+  }
+  
+  .glass-card {
+    @apply glass rounded-2xl p-6;
+  }
+  
+  .glass-sidebar {
+    @apply glass;
+    border-right: 1px solid hsl(var(--glass-border));
+  }
+  
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+  
+  .gradient-accent {
+    background: var(--gradient-accent);
+  }
+  
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* Pomodoro timer specific styles */
+  .timer-ring {
+    stroke-linecap: round;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+  }
+  
+  .timer-ring-background {
+    stroke: hsl(var(--xp-bar-background));
+  }
+  
+  .timer-ring-progress {
+    stroke: url(#timer-gradient);
+    transition: stroke-dashoffset 1s linear;
+  }
+  
+  /* Badge styles */
+  .badge-bronze {
+    background: linear-gradient(135deg, hsl(30, 60%, 50%) 0%, hsl(25, 50%, 40%) 100%);
+  }
+  
+  .badge-silver {
+    background: linear-gradient(135deg, hsl(0, 0%, 75%) 0%, hsl(0, 0%, 60%) 100%);
+  }
+  
+  .badge-gold {
+    background: linear-gradient(135deg, hsl(45, 100%, 55%) 0%, hsl(40, 90%, 45%) 100%);
+  }
+  
+  /* XP progress bar */
+  .xp-progress {
+    @apply h-3 rounded-full overflow-hidden;
+    background: hsl(var(--xp-bar-background));
+  }
+  
+  .xp-progress-fill {
+    @apply h-full rounded-full transition-all duration-500;
+    background: var(--gradient-primary);
+  }
+  
+  /* Animations */
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px hsl(262, 83%, 58%, 0.4);
+    }
+    50% {
+      box-shadow: 0 0 40px hsl(262, 83%, 58%, 0.6);
+    }
+  }
+  
+  @keyframes bounce-subtle {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+  
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+  
+  .animate-bounce-subtle {
+    animation: bounce-subtle 2s ease-in-out infinite;
+  }
+  
+  .animate-fade-in-up {
+    animation: fade-in-up 0.5s ease-out forwards;
   }
 }
