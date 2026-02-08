@@ -125,6 +125,7 @@ export type Database = {
         Row: {
           avatar_url: string | null
           created_at: string
+          email: string | null
           field_of_study: string | null
           first_name: string
           id: string
@@ -137,6 +138,7 @@ export type Database = {
         Insert: {
           avatar_url?: string | null
           created_at?: string
+          email?: string | null
           field_of_study?: string | null
           first_name: string
           id?: string
@@ -149,6 +151,7 @@ export type Database = {
         Update: {
           avatar_url?: string | null
           created_at?: string
+          email?: string | null
           field_of_study?: string | null
           first_name?: string
           id?: string
@@ -213,7 +216,30 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      public_profiles: {
+        Row: {
+          avatar_url: string | null
+          email: string | null
+          first_name: string | null
+          last_name: string | null
+          user_id: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          email?: string | null
+          first_name?: string | null
+          last_name?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          email?: string | null
+          first_name?: string | null
+          last_name?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       get_user_role: {

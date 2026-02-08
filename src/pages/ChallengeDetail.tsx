@@ -12,9 +12,25 @@ import {
   FileText,
   Download,
   BookOpen,
+  Mail,
+  User,
 } from "lucide-react";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
+
+interface CreatorProfile {
+  email: string;
+  first_name: string;
+  last_name: string;
+}
+
+interface Participant {
+  user_id: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  joined_at: string;
+}
 
 interface Challenge {
   id: string;
@@ -29,6 +45,7 @@ interface Challenge {
   creator_id: string;
 }
 
+
 export default function ChallengeDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -36,6 +53,8 @@ export default function ChallengeDetail() {
   const { toast } = useToast();
 
   const [challenge, setChallenge] = useState<Challenge | null>(null);
+  const [creatorProfile, setCreatorProfile] = useState<CreatorProfile | null>(null);
+  const [participants, setParticipants] = useState<Participant[]>([]);
   const [participantCount, setParticipantCount] = useState(0);
   const [isJoined, setIsJoined] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -58,13 +77,47 @@ export default function ChallengeDetail() {
     if (data) {
       setChallenge(data);
 
-      // Get participant count
-      const { count } = await supabase
+      // Get creator profile with email
+      const { data: creatorData } = await supabase
+        .from("profiles")
+        .select("email, first_name, last_name")
+        .eq("user_id", data.creator_id)
+        .single();
+
+      if (creatorData) {
+        setCreatorProfile(creatorData);
+      }
+
+      // Get participants with emails (for professors)
+      const { data: participantsData, count } = await supabase
         .from("challenge_participants")
-        .select("*", { count: "exact", head: true })
+        .select("user_id, joined_at", { count: "exact" })
         .eq("challenge_id", id);
 
       setParticipantCount(count || 0);
+
+      if (participantsData && participantsData.length > 0) {
+        // Get participant profiles
+        const participantIds = participantsData.map(p => p.user_id);
+        const { data: participantProfiles } = await supabase
+          .from("profiles")
+          .select("user_id, email, first_name, last_name")
+          .in("user_id", participantIds);
+
+        if (participantProfiles) {
+          const participantsWithEmails = participantsData.map(p => {
+            const profile = participantProfiles.find(prof => prof.user_id === p.user_id);
+            return {
+              user_id: p.user_id,
+              joined_at: p.joined_at,
+              email: profile?.email || "",
+              first_name: profile?.first_name || "",
+              last_name: profile?.last_name || "",
+            };
+          });
+          setParticipants(participantsWithEmails);
+        }
+      }
 
       // Check if user has joined
       if (user) {
@@ -182,6 +235,23 @@ export default function ChallengeDetail() {
           </div>
         </CardHeader>
         <CardContent className="space-y-6">
+          {/* Creator info */}
+          {creatorProfile && (
+            <div className="p-4 rounded-xl bg-primary/10 border border-primary/20">
+              <h3 className="font-semibold mb-2 flex items-center gap-2">
+                <User className="h-5 w-5 text-primary" />
+                Publié par
+              </h3>
+              <div className="space-y-1">
+                <p className="font-medium">{creatorProfile.first_name} {creatorProfile.last_name}</p>
+                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <Mail className="h-4 w-4" />
+                  <span>{creatorProfile.email}</span>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Meta info */}
           <div className="flex flex-wrap items-center gap-6 text-muted-foreground">
             <div className="flex items-center gap-2">
@@ -226,6 +296,37 @@ export default function ChallengeDetail() {
                   <Download className="mr-2 h-4 w-4" />
                   Télécharger
                 </Button>
+              </div>
+            </div>
+          )}
+
+          {/* Participants list for professors */}
+          {role === "professor" && challenge.creator_id === user?.id && participants.length > 0 && (
+            <div className="p-4 rounded-xl bg-secondary/50">
+              <h3 className="font-semibold mb-3 flex items-center gap-2">
+                <Users className="h-5 w-5" />
+                Participants ({participants.length})
+              </h3>
+              <div className="space-y-2 max-h-64 overflow-y-auto">
+                {participants.map((participant) => (
+                  <div
+                    key={participant.user_id}
+                    className="flex items-center justify-between p-3 rounded-lg bg-background/50"
+                  >
+                    <div>
+                      <p className="font-medium">
+                        {participant.first_name} {participant.last_name}
+                      </p>
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <Mail className="h-3 w-3" />
+                        <span>{participant.email}</span>
+                      </div>
+                    </div>
+                    <span className="text-xs text-muted-foreground">
+                      {format(new Date(participant.joined_at), "d MMM yyyy", { locale: fr })}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
           )}
