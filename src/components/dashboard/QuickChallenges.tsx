@@ -3,7 +3,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import { BookOpen, ArrowRight, Calendar } from "lucide-react";
+import { BookOpen, ArrowRight, Calendar, Mail } from "lucide-react";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 
@@ -13,6 +13,7 @@ interface Challenge {
   subject: string;
   start_date: string;
   end_date: string;
+  creator_email?: string;
 }
 
 export function QuickChallenges() {
@@ -21,15 +22,29 @@ export function QuickChallenges() {
 
   useEffect(() => {
     const fetchChallenges = async () => {
-      const { data } = await supabase
+      const { data: challengesData } = await supabase
         .from("challenges")
-        .select("id, title, subject, start_date, end_date")
+        .select("id, title, subject, start_date, end_date, creator_id")
         .eq("is_active", true)
         .order("created_at", { ascending: false })
         .limit(3);
 
-      if (data) {
-        setChallenges(data);
+      if (challengesData) {
+        // Get creator profiles
+        const creatorIds = [...new Set(challengesData.map(c => c.creator_id))];
+        const { data: profiles } = await supabase
+          .from("profiles")
+          .select("user_id, email")
+          .in("user_id", creatorIds);
+
+        const profilesMap = new Map(profiles?.map(p => [p.user_id, p.email]) || []);
+
+        const challengesWithEmails = challengesData.map(c => ({
+          ...c,
+          creator_email: profilesMap.get(c.creator_id) || "",
+        }));
+
+        setChallenges(challengesWithEmails);
       }
     };
 
@@ -71,6 +86,12 @@ export function QuickChallenges() {
               >
                 <h3 className="font-medium">{challenge.title}</h3>
                 <p className="text-sm text-muted-foreground">{challenge.subject}</p>
+                {challenge.creator_email && (
+                  <div className="flex items-center gap-1 mt-1 text-xs text-primary">
+                    <Mail className="h-3 w-3" />
+                    <span>{challenge.creator_email}</span>
+                  </div>
+                )}
                 <div className="flex items-center gap-2 mt-2 text-xs text-muted-foreground">
                   <Calendar className="h-3 w-3" />
                   <span>

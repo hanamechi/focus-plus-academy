@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
 import { useNavigate } from "react-router-dom";
-import { Search, BookOpen, Calendar, Users, ArrowRight } from "lucide-react";
+import { Search, BookOpen, Calendar, Users, ArrowRight, Mail, User } from "lucide-react";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 
@@ -20,6 +20,8 @@ interface Challenge {
   creator_id: string;
   participant_count?: number;
   is_joined?: boolean;
+  creator_email?: string;
+  creator_name?: string;
 }
 
 export default function Challenges() {
@@ -53,6 +55,15 @@ export default function Challenges() {
 
       const joinedIds = new Set(participations?.map((p) => p.challenge_id) || []);
 
+      // Get creator profiles for emails
+      const creatorIds = [...new Set(challengesData.map(c => c.creator_id))];
+      const { data: profiles } = await supabase
+        .from("profiles")
+        .select("user_id, email, first_name, last_name")
+        .in("user_id", creatorIds);
+
+      const profilesMap = new Map(profiles?.map(p => [p.user_id, p]) || []);
+
       // Get participant counts
       const challengesWithData = await Promise.all(
         challengesData.map(async (challenge) => {
@@ -61,10 +72,14 @@ export default function Challenges() {
             .select("*", { count: "exact", head: true })
             .eq("challenge_id", challenge.id);
 
+          const creatorProfile = profilesMap.get(challenge.creator_id);
+
           return {
             ...challenge,
             participant_count: count || 0,
             is_joined: joinedIds.has(challenge.id),
+            creator_email: creatorProfile?.email || "",
+            creator_name: creatorProfile ? `${creatorProfile.first_name} ${creatorProfile.last_name}` : "",
           };
         })
       );
@@ -171,6 +186,18 @@ export default function Challenges() {
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
+                {/* Creator info */}
+                <div className="p-2 rounded-lg bg-primary/10 border border-primary/20">
+                  <div className="flex items-center gap-2 text-sm">
+                    <User className="h-4 w-4 text-primary" />
+                    <span className="font-medium">{challenge.creator_name}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1">
+                    <Mail className="h-3 w-3" />
+                    <span>{challenge.creator_email}</span>
+                  </div>
+                </div>
+
                 {challenge.description && (
                   <p className="text-sm text-muted-foreground line-clamp-2">
                     {challenge.description}
