@@ -76,25 +76,32 @@ export function PomodoroTimer() {
       const badges = [...(currentProgress.badges || [])];
 
       // Check for new badges
-      if (newSessions === 1 && !badges.includes("novice")) {
-        badges.push("novice");
-        toast({
-          title: "Badge débloqué! 🥉",
-          description: "Félicitations! Vous avez obtenu le badge Novice!",
-        });
+      const badgeChecks = [
+        { id: "novice", sessions: 1, icon: "🥉", name: "Novice" },
+        { id: "productif", sessions: 10, icon: "🥈", name: "Productif" },
+        { id: "expert", sessions: 50, icon: "🥇", name: "Expert" },
+        { id: "en_feu", sessions: 100, icon: "🔥", name: "En Feu" },
+        { id: "diamant", sessions: 200, icon: "💎", name: "Diamant" },
+        { id: "gardien", sessions: 500, icon: "🛡️", name: "Gardien de la Concentration" },
+      ];
+
+      for (const check of badgeChecks) {
+        if (newSessions >= check.sessions && !badges.includes(check.id)) {
+          badges.push(check.id);
+          toast({
+            title: `Badge débloqué! ${check.icon}`,
+            description: `Félicitations! Vous avez obtenu le badge ${check.name}!`,
+          });
+        }
       }
-      if (newSessions === 10 && !badges.includes("productif")) {
-        badges.push("productif");
+
+      // Level up celebration
+      const oldLevel = Math.floor(currentProgress.xp / 100) + 1;
+      const newLevel = Math.floor(newXp / 100) + 1;
+      if (newLevel > oldLevel) {
         toast({
-          title: "Badge débloqué! 🥈",
-          description: "Félicitations! Vous avez obtenu le badge Productif!",
-        });
-      }
-      if (newSessions === 50 && !badges.includes("expert")) {
-        badges.push("expert");
-        toast({
-          title: "Badge débloqué! 🥇",
-          description: "Félicitations! Vous avez obtenu le badge Expert!",
+          title: `🎉 Niveau ${newLevel} atteint!`,
+          description: `Bravo! Vous êtes maintenant niveau ${newLevel}!`,
         });
       }
 
