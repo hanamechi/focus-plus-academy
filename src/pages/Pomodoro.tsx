@@ -1,6 +1,5 @@
-import { useAuth } from "@/contexts/AuthContext";
 import { PomodoroTimer } from "@/components/pomodoro/PomodoroTimer";
-import { ProgressCard } from "@/components/dashboard/ProgressCard";
+import { EnhancedProgressCard } from "@/components/dashboard/EnhancedProgressCard";
 import { RecentSessions } from "@/components/dashboard/RecentSessions";
 
 export default function Pomodoro() {
@@ -18,7 +17,7 @@ export default function Pomodoro() {
           <PomodoroTimer />
         </div>
         <div className="lg:col-span-1">
-          <ProgressCard />
+          <EnhancedProgressCard />
         </div>
       </div>
 
