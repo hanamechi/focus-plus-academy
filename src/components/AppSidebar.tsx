@@ -23,13 +23,16 @@ import {
   Plus, 
   LayoutDashboard,
   User,
-  LogOut
+  LogOut,
+  ListTodo,
+  Users
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const studentItems = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
+  { title: "Mes Tâches", url: "/dashboard/tasks", icon: ListTodo },
   { title: "Pomodoro", url: "/dashboard/pomodoro", icon: Timer },
   { title: "Ma Progression", url: "/dashboard/progress", icon: Trophy },
   { title: "Explorer les Défis", url: "/dashboard/challenges", icon: Search },
@@ -38,6 +41,7 @@ const studentItems = [
 
 const professorItems = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
+  { title: "Étudiants", url: "/dashboard/students", icon: Users },
   { title: "Mes Défis", url: "/dashboard/my-challenges", icon: BookOpen },
   { title: "Créer un Défi", url: "/dashboard/create-challenge", icon: Plus },
 ];
