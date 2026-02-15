@@ -18,6 +18,8 @@ import MyChallenges from "./pages/MyChallenges";
 import CreateChallenge from "./pages/CreateChallenge";
 import ChallengeDetail from "./pages/ChallengeDetail";
 import Profile from "./pages/Profile";
+import Tasks from "./pages/Tasks";
+import Students from "./pages/Students";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -51,6 +53,12 @@ const App = () => (
                   </ProtectedRoute>
                 } />
                 <Route path="challenge/:id" element={<ChallengeDetail />} />
+                <Route path="tasks" element={<Tasks />} />
+                <Route path="students" element={
+                  <ProtectedRoute requiredRole="professor">
+                    <Students />
+                  </ProtectedRoute>
+                } />
                 <Route path="profile" element={<Profile />} />
               </Route>
               

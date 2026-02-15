@@ -4,6 +4,8 @@ import { EnhancedProgressCard } from "@/components/dashboard/EnhancedProgressCar
 import { RecentSessions } from "@/components/dashboard/RecentSessions";
 import { QuickChallenges } from "@/components/dashboard/QuickChallenges";
 import { StudyStats } from "@/components/dashboard/StudyStats";
+import { TodoList } from "@/components/dashboard/TodoList";
+import { AssignedTasksList } from "@/components/dashboard/AssignedTasksList";
 
 export function StudentDashboard() {
   const { profile } = useAuth();
@@ -31,6 +33,12 @@ export function StudentDashboard() {
 
       {/* Study Stats */}
       <StudyStats />
+
+      {/* Tasks */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <TodoList />
+        <AssignedTasksList />
+      </div>
 
       {/* Secondary Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

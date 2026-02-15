@@ -5,6 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Plus, Users, BookOpen, Calendar } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { StudentList } from "@/components/dashboard/StudentList";
+import { AssignTaskForm } from "@/components/dashboard/AssignTaskForm";
 
 interface Challenge {
   id: string;
@@ -133,6 +135,12 @@ export function ProfessorDashboard() {
             </div>
           </CardContent>
         </Card>
+      </div>
+
+      {/* Students & Assign Tasks */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <StudentList />
+        <AssignTaskForm />
       </div>
 
       {/* Recent Challenges */}
