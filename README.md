@@ -1,73 +1,97 @@
-# Welcome to your Lovable project
+# Focus Flow (32)
 
-## Project info
+Cahier des Charges : Projet FOCUS+
+1. Présentation du Projet
+Nom de l'application : FOCUS+
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+Concept : Une plateforme web de productivité académique combinant la gestion du temps (Méthode Pomodoro), la gamification (XP/Badges) et le partage de ressources pédagogiques entre enseignants et étudiants.
 
-## How can I edit this code?
+2. Objectifs Stratégiques
+Lutter contre la procrastination via un environnement de travail contraint (Mode Strict).
 
-There are several ways of editing your application.
+Favoriser l'engagement par un système de récompenses visuelles.
 
-**Use Lovable**
+Centraliser les ressources en permettant aux professeurs de créer des défis liés à des fichiers de cours.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+3. Analyse Fonctionnelle (Par Rôle)
+A. Tronc Commun (Tous les utilisateurs)
+Authentification simplifiée : Connexion via nom/prénom et sélection du rôle.
 
-Changes made via Lovable will be committed automatically to this repo.
+Interface Adaptative : Mode Sombre/Clair avec persistance du choix.
 
-**Use your preferred IDE**
+Recherche Globale : Barre de recherche intégrée au header pour filtrer les modules et défis.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Sidebar Dynamique : Menu changeant selon le rôle (Focus pour étudiants, Création pour professeurs).
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+B. Espace Étudiant
+Gestionnaire de Temps (Pomodoro) :
 
-Follow these steps:
+Cycle de 25 minutes avec compte à rebours visuel (SVG progressif).
+
+Mode Strict : Détection de la sortie de l'onglet (API Visibility) pour empêcher la distraction.
+
+Système de Progression : * Gain automatique de 50 XP par session validée.
+
+Déblocage de badges (Novice, Productif, Expert) selon le score.
+
+Consultation des Défis : Liste des modules publiés par les professeurs avec option "Participer".
+
+C. Espace Professeur
+Module de Création : Formulaire complet pour publier un défi (Titre, Dates, Description).
+
+Gestion de Fichiers : Possibilité d'attacher des documents (PDF/ZIP).
+
+Suivi : Visualisation du nombre de participants par défi et suppression des anciens modules.
+
+4. Spécifications Techniques
+Architecture Front-end
+Langages : HTML5, CSS3 (Variables personnalisées), JavaScript Vanilla (ES6+).
+
+Framework CSS : Bootstrap 5.3 pour la structure responsive.
+
+Icônes & Polices : Font Awesome 6.4 & Google Fonts (Plus Jakarta Sans).
+
+Stockage et État
+Local Storage : Utilisé pour sauvegarder les préférences de thème et potentiellement les données de session utilisateur.
+
+Gestion d'état : Objets JavaScript pour la gestion en temps réel des défis et du profil utilisateur.
+
+Design (UI/UX)
+Style : Glassmorphism (effets de verre, flou d'arrière-plan, ombres douces).
+
+Animations : Transitions fluides entre les pages et effets de rebond (bounce) sur les alertes critiques.
+
+5. Contraintes et Sécurité
+Responsivité : L'interface doit être utilisable sur desktop et tablette (Sidebar adaptée).
+
+Intégrité du Focus : Le chronomètre doit se mettre en pause ou alerter l'utilisateur si la fenêtre perd le focus (Mode Strict).
+
+6. Évolutions Futures (V2)
+Intégration d'une base de données réelle (Firebase/Node.js) pour la persistance multi-appareils.
+
+Chat en temps réel entre étudiants participant au même défi.
+
+Statistiques hebdomadaires sous forme de graphiques (Chart.js).
+
+This project was built with [Lovable](https://lovable.dev).
+
+**Live app**: https://focus-plus-academy.lovable.app
+
+## Build with Lovable
+
+Continue developing this project in the [Lovable editor](https://lovable.dev/projects/4876f639-fbc9-43bb-bbde-81949691f238).
+
+- **Ship faster**: describe what you want to build and Lovable handles the code.
+- **Stay in sync**: every change made in Lovable is committed straight to this repository.
+- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+
+## Development
+
+Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
+git clone <this-repository-url>
+cd <repository-name>
 npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
 npm run dev
 ```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
