@@ -1,97 +1,65 @@
-# FOCUS+
+# FOCUS+ — Academic Productivity Platform
 
-Cahier des Charges : Projet FOCUS+
-1. Présentation du Projet
-Nom de l'application : FOCUS+
+## À propos du projet
 
-Concept : Une plateforme web de productivité académique combinant la gestion du temps (Méthode Pomodoro), la gamification (XP/Badges) et le partage de ressources pédagogiques entre enseignants et étudiants.
+FOCUS+ est une plateforme web de productivité académique combinant la gestion du temps (méthode Pomodoro), la gamification (XP/Badges) et le partage de ressources pédagogiques entre enseignants et étudiants.
 
-2. Objectifs Stratégiques
-Lutter contre la procrastination via un environnement de travail contraint (Mode Strict).
+Le projet a été développé en équipe dans le cadre d'un projet académique, avec deux stacks distincts :
 
-Favoriser l'engagement par un système de récompenses visuelles.
+- **Stack 1 :** Angular + FastAPI (Python) + MySQL (SQLAlchemy, authentification JWT), tests Selenium/pytest
+- **Stack 2 :** Jakarta EE (Java) + JPA/Hibernate + JSP + MySQL, déployé sur WildFly
 
-Centraliser les ressources en permettant aux professeurs de créer des défis liés à des fichiers de cours.
 
-3. Analyse Fonctionnelle (Par Rôle)
-A. Tronc Commun (Tous les utilisateurs)
-Authentification simplifiée : Connexion via nom/prénom et sélection du rôle.
+**Démo live : https://focus-plus-academy.lovable.app**
 
-Interface Adaptative : Mode Sombre/Clair avec persistance du choix.
+Cette démo a été déployée avec [Lovable](https://lovable.dev) afin que le projet soit consultable en ligne par n'importe qui, sans avoir besoin de cloner et lancer le code en local. Elle reproduit fidèlement les mêmes fonctionnalités et le même comportement que la version originale (Angular/FastAPI ou Jakarta EE) : un déploiement du projet avec le stack original donnerait un résultat identique en termes de fonctionnalités et d'expérience utilisateur.
 
-Recherche Globale : Barre de recherche intégrée au header pour filtrer les modules et défis.
+---
 
-Sidebar Dynamique : Menu changeant selon le rôle (Focus pour étudiants, Création pour professeurs).
+## Cahier des Charges : Projet FOCUS+
 
-B. Espace Étudiant
-Gestionnaire de Temps (Pomodoro) :
+### 1. Présentation du Projet
+**Nom de l'application :** FOCUS+
 
-Cycle de 25 minutes avec compte à rebours visuel (SVG progressif).
+**Concept :** Une plateforme web de productivité académique combinant la gestion du temps (Méthode Pomodoro), la gamification (XP/Badges) et le partage de ressources pédagogiques entre enseignants et étudiants.
 
-Mode Strict : Détection de la sortie de l'onglet (API Visibility) pour empêcher la distraction.
+### 2. Objectifs Stratégiques
+- Lutter contre la procrastination via un environnement de travail contraint (Mode Strict).
+- Favoriser l'engagement par un système de récompenses visuelles.
+- Centraliser les ressources en permettant aux professeurs de créer des défis liés à des fichiers de cours.
 
-Système de Progression : * Gain automatique de 50 XP par session validée.
+### 3. Analyse Fonctionnelle (Par Rôle)
 
-Déblocage de badges (Novice, Productif, Expert) selon le score.
+**A. Tronc Commun (Tous les utilisateurs)**
+- Authentification simplifiée : Connexion via nom/prénom et sélection du rôle.
+- Interface Adaptative : Mode Sombre/Clair avec persistance du choix.
+- Recherche Globale : Barre de recherche intégrée au header pour filtrer les modules et défis.
+- Sidebar Dynamique : Menu changeant selon le rôle (Focus pour étudiants, Création pour professeurs).
 
-Consultation des Défis : Liste des modules publiés par les professeurs avec option "Participer".
+**B. Espace Étudiant**
+- Gestionnaire de Temps (Pomodoro) : Cycle de 25 minutes avec compte à rebours visuel (SVG progressif).
+- Mode Strict : Détection de la sortie de l'onglet (API Visibility) pour empêcher la distraction.
+- Système de Progression : Gain automatique de 50 XP par session validée, déblocage de badges (Novice, Productif, Expert) selon le score.
+- Consultation des Défis : Liste des modules publiés par les professeurs avec option "Participer".
 
-C. Espace Professeur
-Module de Création : Formulaire complet pour publier un défi (Titre, Dates, Description).
+**C. Espace Professeur**
+- Module de Création : Formulaire complet pour publier un défi (Titre, Dates, Description).
+- Gestion de Fichiers : Possibilité d'attacher des documents (PDF/ZIP).
+- Suivi : Visualisation du nombre de participants par défi et suppression des anciens modules.
 
-Gestion de Fichiers : Possibilité d'attacher des documents (PDF/ZIP).
+### 4. Spécifications Techniques — Stack Original
+- **Front-end :** Angular
+- **Back-end :** FastAPI (Python), architecture REST, authentification JWT
+- **Base de données :** MySQL (via SQLAlchemy)
+- **Tests :** Selenium, pytest
+- **Variante :** Jakarta EE (Java) + JPA/Hibernate + JSP + WildFly
 
-Suivi : Visualisation du nombre de participants par défi et suppression des anciens modules.
+*(La démo déployée ci-dessus utilise Lovable — React, TypeScript, Vite, Supabase — pour permettre une consultation en ligne immédiate, tout en reproduisant le même comportement fonctionnel que le stack original.)*
 
-4. Spécifications Techniques
-Architecture Front-end
-Langages : HTML5, CSS3 (Variables personnalisées), JavaScript Vanilla (ES6+).
+### 5. Design (UI/UX)
+- Style : Glassmorphism (effets de verre, flou d'arrière-plan, ombres douces).
+- Animations : Transitions fluides entre les pages et effets de rebond (bounce) sur les alertes critiques.
 
-Framework CSS : Bootstrap 5.3 pour la structure responsive.
-
-Icônes & Polices : Font Awesome 6.4 & Google Fonts (Plus Jakarta Sans).
-
-Stockage et État
-Local Storage : Utilisé pour sauvegarder les préférences de thème et potentiellement les données de session utilisateur.
-
-Gestion d'état : Objets JavaScript pour la gestion en temps réel des défis et du profil utilisateur.
-
-Design (UI/UX)
-Style : Glassmorphism (effets de verre, flou d'arrière-plan, ombres douces).
-
-Animations : Transitions fluides entre les pages et effets de rebond (bounce) sur les alertes critiques.
-
-5. Contraintes et Sécurité
-Responsivité : L'interface doit être utilisable sur desktop et tablette (Sidebar adaptée).
-
-Intégrité du Focus : Le chronomètre doit se mettre en pause ou alerter l'utilisateur si la fenêtre perd le focus (Mode Strict).
-
-6. Évolutions Futures (V2)
-Intégration d'une base de données réelle (Firebase/Node.js) pour la persistance multi-appareils.
-
-Chat en temps réel entre étudiants participant au même défi.
-
-Statistiques hebdomadaires sous forme de graphiques (Chart.js).
-
-This project was built with [Lovable](https://lovable.dev).
-
-**Live app**: https://focus-plus-academy.lovable.app
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/4876f639-fbc9-43bb-bbde-81949691f238).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
-## Development
-
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
-```
+### 6. Contraintes et Sécurité
+- Responsivité : L'interface doit être utilisable sur desktop et tablette (Sidebar adaptée).
+- Intégrité du Focus : Le chronomètre doit se mettre en pause ou alerter l'utilisateur si la fenêtre perd le focus (Mode Strict).
