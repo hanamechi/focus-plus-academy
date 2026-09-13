@@ -1,4 +1,4 @@
-# Focus Flow (32)
+# FOCUS+
 
 Cahier des Charges : Projet FOCUS+
 1. Présentation du Projet
